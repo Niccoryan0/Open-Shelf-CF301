@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oh Noes! Errors!</title>
+  <link rel="stylesheet" href="/styles/reset.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/modules.css">
+</head>
+<body>
+  <h1>Oh Dear. Looks like we've run into a problem.</h1>
+  <h2>Here's what we're looking at:</h2>
+  <% errors.forEach(err => { %>
+    <p> <%= err %> </p>
+  <%  }) %>
+</body>
+</html>
