@@ -8,14 +8,17 @@
     <link rel="stylesheet" href="/styles/base.css">
     <link rel="stylesheet" href="/styles/layout.css">
     <link rel="stylesheet" href="/styles/modules.css">
+    <link rel="stylesheet" href="/styles/show.css">
+
 </head>
 <body>
-  <nav>
-    <h1>Welcome to Book World!</h1>
-    <!-- Make a toggle menu? -->
-  </nav>
+
     <h3>Click the button below to view our catalogue!</h3>
     <input type="submit" value="Go To Search Page" 
-    onclick="window.location='/searches/new';" />   
+    onclick="window.location='/searches/new';" />  
+    <%if (newBooks){%> 
+    <h2>Here's your saved books:</h2>
+    <%- include('../partials/booklist.ejs') %>
+    <%}%>
   </body>
 </html>

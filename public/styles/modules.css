@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Ubuntu+Mono&display=swap');
+
 body {
   background-color: gray;
-  font-family: monospace;
+  font-family: 'Ubuntu Mono', monospace;
 }
 
 nav {
@@ -9,11 +11,14 @@ nav {
 
 
 h1 {
-  font-size: 15px;
+  font-size: 18px;
   color: white;
+  font-family: 'Balsamiq Sans', cursive;
 }
 
 h2 {
-  font-size: 12px;
+  font-size: 15px;
   color: white;
+  font-family: 'Balsamiq Sans', cursive;
+
 }

@@ -10,10 +10,8 @@
   <link rel="stylesheet" href="/styles/modules.css">
 </head>
 <body>
-  <nav>
-    <h1>Book World</h1>
-    <!-- Make a toggle menu? -->
-  </nav>
+  <%- include('../../partials/navbar.ejs') %>
+
   <h2 class='mainhead'>Search by Title Or Author</h2>
   <div id="wrapper">
     <form action="/searches" method="post">

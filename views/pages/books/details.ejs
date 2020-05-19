@@ -12,8 +12,15 @@
 
 </head>
 <body>
-  <%- include('../../partials/navbar.ejs') %>
+  <%- include('../partials/navbar.ejs') %>
   <h2 class='mainhead'>Here's what we found:</h2>
-  <%- include('../../partials/booklist.ejs') %>
+  <ul>
+      <li>
+        <img src=<%= book.img %> alt=<%= book.desc %>>
+        <h1> <%= book.title %></h1>
+        <h3> <%= book.author %></h3>
+        <p> <%= book.desc %></p>
+      </li>
+  </ul>
 </body>
 </html>
