@@ -23,8 +23,12 @@ function Book(obj) {
 // Config
 app.use(cors());
 
+// For Form Use
+
+app.use(express.static('./Public'));
+app.use(express.urlencoded({extended: true}));
+
 // Routes
-// app.set('views', path.join(__dirname, 'views') );
 app.set('view engine', 'ejs');
 
 app.get('/hello', (req, res) => {
