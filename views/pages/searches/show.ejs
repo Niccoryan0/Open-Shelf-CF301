@@ -12,8 +12,20 @@
 
 </head>
 <body>
-  <%- include('../../partials/navbar.ejs') %>
-  <h2 class='mainhead'>Here's what we found:</h2>
-  <%- include('../../partials/booklist.ejs') %>
-</body>
+  <%- include("../../layout/navbar.ejs") %>
+  <h2 class="mainhead">Here's what we found:</h2>
+  <ul class="booklist">
+    <% newBooks.forEach(book => { %>
+      <li>
+        <img src=<%= book.img %> alt=<%= book.desc %>>
+        <h1> <%= book.title %></h1>
+        <h3> <%= book.author %></h3>
+        <a href="/books/<%= book.title %>">Details</a>
+        <form action="../books" method="post">
+          <input type="hidden" value ="<%=JSON.stringify(book)%>" name='chosenBook'>
+          <input type="submit" value="Save Book">
+        </form>
+      </li>
+    <% }) %>
+  </ul></body>
 </html>

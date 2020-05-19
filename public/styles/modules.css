@@ -22,3 +22,7 @@ h2 {
   font-family: 'Balsamiq Sans', cursive;
 
 }
+
+.booklist >li {
+  background-color: rgb(236, 184, 184);
+}

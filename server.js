@@ -7,8 +7,6 @@ const superagent = require('superagent');
 const pg = require('pg');
 require('dotenv').config();
 
-
-
 // Global vars
 const PORT = process.env.PORT;
 const app = express();
@@ -22,6 +20,8 @@ function Book(obj) {
   }
   this.img = obj.imageLinks ? obj.imageLinks.smallThumbnail : `https://i.imgur.com/J5LVHEL.jpg`;
   this.desc = obj.description ? obj.description : 'No Description Available, Sorry.';
+  this.isbn = obj.industryIdentifiers ? obj.industryIdentifiers[0].identifier : 'No ISBN found';
+  this.shelf = 0;
 }
 
 // Config
@@ -47,25 +47,26 @@ app.get('/searches/new', (req, res) => {
 
 app.post('/searches', (req, res) => {
   let apiUrl;
-  req.body['search-type'] === 'author' ? apiUrl = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.body.search}` : apiUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${req.body.search}`;
+  req.body['search-type'] === 'author' ? apiUrl = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.body.search}&maxResults=10` : apiUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${req.body.search}&maxResults=10`;
   superagent.get(apiUrl)
     .then(result => {
       const books = result.body.items.map(curVal => new Book(curVal.volumeInfo));
-      const sqlQuery = 'INSERT INTO books (title, author, img, descrip) VALUES ($1, $2, $3, $4)';
-      books.forEach(val =>{
-        const valArray = [val.title, val.author, val.img, val.desc];
-        client.query(sqlQuery, valArray);
-      });
       res.render('pages/searches/show', {'newBooks' : books});
     }).catch(err => res.render('pages/error', {error: err}));
 });
 
-app.get('/tasks/:id', (req, res) => {
-  // req.params comes back {id : id} when visiting tasks/:id
-  // when visiting tasks/scoobydoo the id comes back {id : scoobydoo}
-  const sqlQuery = `SELECT * FROM books WHERE title = ${req.params.id}`;
+app.get('/books/:id', (req, res) => {
+  const sqlQuery = `SELECT * FROM books WHERE title = '${req.params.id}'`;
   client.query(sqlQuery)
-    .then(result => res.render('pages/books/show', {book : result.rows[0]}));
+    .then(result => res.render('pages/books/show', {newBooks : result.rows}));
+});
+
+app.post('/books', (req,res) => {
+  const chosenBook = JSON.parse(req.body.chosenBook);
+  const sqlQuery = 'INSERT INTO books (title, author, img, descrip, isbn, shelf) VALUES ($1, $2, $3, $4, $5, $6)';
+  const valArray = [chosenBook.title, chosenBook.author, chosenBook.img, chosenBook.desc, chosenBook.isbn, chosenBook.shelf];
+  client.query(sqlQuery, valArray);
+  res.render('pages/books/show', {'newBooks' : chosenBook});
 });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books Homepage</title>
-    <link rel="stylesheet" href="/styles/reset.css">
-    <link rel="stylesheet" href="/styles/base.css">
-    <link rel="stylesheet" href="/styles/layout.css">
-    <link rel="stylesheet" href="/styles/modules.css">
-    <link rel="stylesheet" href="/styles/show.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books Homepage</title>
+  <link rel="stylesheet" href="/styles/reset.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/modules.css">
+  <link rel="stylesheet" href="/styles/show.css">
 </head>
 <body>
+  <%- include('../layout/navbar.ejs') %>
 
-    <h3>Click the button below to view our catalogue!</h3>
-    <input type="submit" value="Go To Search Page" 
-    onclick="window.location='/searches/new';" />  
-    <%if (newBooks){%> 
-    <h2>Here's your saved books:</h2>
-    <%- include('../partials/booklist.ejs') %>
-    <%}%>
-  </body>
+  <%if (newBooks){%> 
+  <h2>You've got <%=newBooks.length%> books stored, here they are:</h2>
+  <%- include('../layout/booklist.ejs') %>
+  <%}%>
+</body>
 </html>
