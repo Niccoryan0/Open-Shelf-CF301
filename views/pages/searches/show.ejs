@@ -8,17 +8,19 @@
   <link rel="stylesheet" href="/styles/base.css">
   <link rel="stylesheet" href="/styles/layout.css">
   <link rel="stylesheet" href="/styles/modules.css">
+  <link rel="stylesheet" href="/styles/show.css">
+
 </head>
 <body>
-  <h1>Books!</h1>
-  <p>Here's what we found:</p>
+  <!-- <h1>Books!</h1> -->
+  <h2 class='mainhead'>Here's what we found:</h2>
   <ul>
     <% newBooks.forEach(val => { %>
       <li>
-        <h1> <%= val.title %></h1>
-        <h1> <%= val.author %></h1>
-        <h1> <%= val.desc %></h1>
         <img src=<%= val.img %> alt=<%= val.desc %>>
+        <h1> <%= val.title %></h1>
+        <h3> <%= val.author %></h3>
+        <p> <%= val.desc %></p>
       </li>
     <% }) %>
   </ul>
