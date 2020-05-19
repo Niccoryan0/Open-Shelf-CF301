@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Finder</title>
+  <link rel="stylesheet" href="/styles/reset.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/modules.css">
+</head>
+<body>
+  <nav>
+    <h1>Book World</h1>
+    <!-- Make a toggle menu? -->
+  </nav>
+  <h2>Search by Title Or Author</h2>
+  <div id="wrapper">
+    <form action="/searches" method="post">
+      <fieldset>
+        <ul class="inputs">
+          <li class="input radio">
+            <label for="title">Title</label>
+            <input type="radio" id="title" name="search-type" value="title" checked>
+
+          </li>
+          <li class="input radio">
+            <label for="title">Author</label>
+            <input type="radio" id="author" name="search-type" value="author">
+
+          </li>
+          <li class="input">
+            <input type="text" name="search" placeholder="Enter a title or author">
+          </li>
+          <div>
+            <input type="submit">
+
+          </div>
+        </ul>
+      </fieldset>
+    </form>
+  </div>
+</body>
+</html>
