@@ -42,7 +42,7 @@ app.get('/searches/new', (req, res) => {
 app.post('/searches', (req, res) => {
   let apiUrl;
   console.log('request:       ', req.body);
-  req.body['search-type'] === 'author' ? apiUrl = `ttps://www.googleapis.com/books/v1/volumes?q=inauthor:${req.body.search}` : apiUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${req.body.search}`;
+  req.body['search-type'] === 'author' ? apiUrl = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.body.search}` : apiUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${req.body.search}`;
   superagent.get(apiUrl)
     .then(result => {
       const books = result.body.items.map(curVal => new Book(curVal.volumeInfo));
