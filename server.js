@@ -14,10 +14,10 @@ const app = express();
 app.use(express.static('./public')); //helps the frontend
 
 function Book(obj) {
-  this.title = obj.title;
-  this.author = obj.authors[0];
-  this.img = obj.imageLinks.smallThumbnail;
-  this.desc = obj.description;
+  this.title = obj.title ? obj.title : 'Unknown Title';
+  this.author = obj.authors ? obj.authors[0] : 'Unknown Author';
+  this.img = obj.imageLinks ? obj.imageLinks.smallThumbnail : `https://i.imgur.com/J5LVHEL.jpg`;
+  this.desc = obj.description ? obj.description : 'No Description Available, Sorry.';
 }
 
 // Config
@@ -31,24 +31,23 @@ app.use(express.urlencoded({extended: true}));
 // Routes
 app.set('view engine', 'ejs');
 
-app.get('/hello', (req, res) => {
+app.get('/', (req, res) => {
   res.render('pages/index');
 });
 
 app.get('/searches/new', (req, res) => {
-  res.render('Pages/searches/new');
+  res.render('pages/searches/new');
 });
 
 app.post('/searches', (req, res) => {
   let apiUrl;
   console.log('request:       ', req.body);
-  req.body.author ? apiUrl = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.body.search}` : apiUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${req.body.search}`;
+  req.body['search-type'] === 'author' ? apiUrl = `ttps://www.googleapis.com/books/v1/volumes?q=inauthor:${req.body.search}` : apiUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${req.body.search}`;
   superagent.get(apiUrl)
     .then(result => {
       const books = result.body.items.map(curVal => new Book(curVal.volumeInfo));
-      res.render('Pages/searches/show', {'newBooks' : books});
-    });
-
+      res.render('pages/searches/show', {'newBooks' : books});
+    }).catch(err => res.render('pages/error', {errors : [err]}));
 });
 
 

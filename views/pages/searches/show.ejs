@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Finder Results</title>
+  <link rel="stylesheet" href="/styles/reset.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/modules.css">
+</head>
+<body>
+  <h1>Books!</h1>
+  <p>Here's what we found:</p>
+  <ul>
+    <% newBooks.forEach(val => { %>
+      <li>
+        <h1> <%= val.title %></h1>
+        <h1> <%= val.author %></h1>
+        <h1> <%= val.desc %></h1>
+        <img src=<%= val.img %> alt=<%= val.desc %>>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

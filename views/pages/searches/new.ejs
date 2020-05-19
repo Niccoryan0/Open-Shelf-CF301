@@ -3,14 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Book Finder</title>
+  <link rel="stylesheet" href="/styles/reset.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/modules.css">
 </head>
 <body>
   <form action="/searches" method="post">
     <fieldset>
       <p>Search by:</p>
       <label for="title">Title</label>
-      <input type="radio" id="title" name="search-type" value="title">
+      <input type="radio" id="title" name="search-type" value="title" checked>
       <label for="title">Author</label>
       <input type="radio" id="author" name="search-type" value="author">
       <input type="text" name="search" placeholder="Title/Author">
