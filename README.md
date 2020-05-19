@@ -1,6 +1,8 @@
 # Open-Shelf-CF301
 
 
+Assistance from: Bryant Davis
+
 ## Features
 Number and name of feature: ________________________________
 

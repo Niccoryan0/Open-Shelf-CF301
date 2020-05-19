@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/searches" method="post">
+    <fieldset>
+      <p>Search by:</p>
+      <label for="title">Title</label>
+      <input type="radio" id="title" name="search-type" value="title">
+      <label for="title">Author</label>
+      <input type="radio" id="author" name="search-type" value="author">
+      <input type="text" name="search" placeholder="Title/Author">
+      <input type="submit">
+    </fieldset>
+  </form>
+</body>
+</html>
