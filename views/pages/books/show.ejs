@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Books Homepage</title>
+  <title>Book Finder Results</title>
   <link rel="stylesheet" href="/styles/reset.css">
   <link rel="stylesheet" href="/styles/base.css">
   <link rel="stylesheet" href="/styles/layout.css">
   <link rel="stylesheet" href="/styles/modules.css">
   <link rel="stylesheet" href="/styles/show.css">
+
 </head>
 <body>
-  <%- include('../layout/navbar.ejs') %>
+  <%- include('../../layout/navbar.ejs') %>
+  <h2 class='mainhead'>Here's what we've got:</h2>
+  <%- include('../../layout/details.ejs') %>
 
-  <%if (newBooks){%> 
-  <h2>You've got <%=newBooks.length%> books stored, here they are:</h2>
-  <%- include('../layout/details.ejs') %>
-  <%}%>
 </body>
 </html>
