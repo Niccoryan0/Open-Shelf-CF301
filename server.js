@@ -19,7 +19,7 @@ function Book(obj) {
     obj.imageLinks.smallThumbnail = obj.imageLinks.smallThumbnail.split(':').join('s:');
   }
   this.img = obj.imageLinks ? obj.imageLinks.smallThumbnail : `https://i.imgur.com/J5LVHEL.jpg`;
-  this.desc = obj.description ? obj.description : 'No Description Available, Sorry.';
+  this.descrip = obj.description ? obj.description : 'No Description Available, Sorry.';
   this.isbn = obj.industryIdentifiers ? obj.industryIdentifiers[0].identifier : 'No ISBN found';
   this.shelf = 0;
 }
@@ -36,37 +36,52 @@ app.use(express.urlencoded({extended: true}));
 // Routes
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
+app.get('/', getSqlForHome);
+
+app.get('/searches/new', (req, res) => res.render('pages/searches/new'));
+
+app.post('/searches', handleSearch);
+
+app.get('/books/:id', bookDetails);
+
+app.post('/books', bookDetailsSql);
+
+function getSqlForHome(req,res) {
   client.query('SELECT * FROM books')
     .then(result => res.render('pages/index', {'newBooks' : result.rows}));
-});
+}
 
-app.get('/searches/new', (req, res) => {
-  res.render('pages/searches/new');
-});
-
-app.post('/searches', (req, res) => {
+function handleSearch(req,res) {
   let apiUrl;
   req.body['search-type'] === 'author' ? apiUrl = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.body.search}&maxResults=10` : apiUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${req.body.search}&maxResults=10`;
   superagent.get(apiUrl)
-    .then(result => {
-      const books = result.body.items.map(curVal => new Book(curVal.volumeInfo));
-      res.render('pages/searches/show', {'newBooks' : books});
-    }).catch(err => res.render('pages/error', {error: err}));
-});
+    .then(result => handleSuperAgent(result, res))
+    .catch(err => handleErrors(err, res));
+}
 
-app.get('/books/:id', (req, res) => {
-  const sqlQuery = `SELECT * FROM books WHERE title = '${req.params.id}'`;
-  client.query(sqlQuery)
-    .then(result => res.render('pages/books/show', {newBooks : result.rows}));
-});
+function handleSuperAgent(result, res) {
+  const books = result.body.items.map(curVal => new Book(curVal.volumeInfo));
+  res.render('pages/searches/show', {'newBooks' : books});
+}
 
-app.post('/books', (req,res) => {
+function handleErrors(err, res){
+  console.log(err);
+  res.render('pages/error', {error: err});
+}
+
+function bookDetailsSql(req, res){
   const chosenBook = JSON.parse(req.body.chosenBook);
   const sqlQuery = 'INSERT INTO books (title, author, img, descrip, isbn, shelf) VALUES ($1, $2, $3, $4, $5, $6)';
-  const valArray = [chosenBook.title, chosenBook.author, chosenBook.img, chosenBook.desc, chosenBook.isbn, chosenBook.shelf];
+  const valArray = [chosenBook.title, chosenBook.author, chosenBook.img, chosenBook.descrip, chosenBook.isbn, chosenBook.shelf];
   client.query(sqlQuery, valArray);
-  res.render('pages/books/show', {'newBooks' : chosenBook});
-});
+  res.render('pages/books/show', {'newBooks' : [chosenBook]});
+}
+
+function bookDetails(req, res){
+  const sqlQuery = `SELECT * FROM books WHERE title = '${req.params.id}'`;
+  client.query(sqlQuery)
+    .then(result => res.render('pages/books/show', {newBooks : result.rows}))
+    .catch(err => handleErrors(err, res));
+}
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

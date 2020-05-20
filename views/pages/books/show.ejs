@@ -14,18 +14,7 @@
 <body>
   <%- include('../../layout/navbar.ejs') %>
   <h2 class='mainhead'>Here's what we've got:</h2>
-  <ul class='booklist details'>
-    <% newBooks.forEach(book => { %>
-      <li>
-        <img src=<%= book.img %> alt=<%= book.desc %>>
-        <h1>Title: <%= book.title %></h1>
-        <h3>Author: <%= book.author %></h3>
-        <p id='detailsdescription'>Description: <br> <%= book.descrip %></p>
-        <p>ISBN Number: <%= book.isbn %></p>
-        <p>Bookshelf Number: <%= book.shelf %></p>
-        <a href="/books/<%= book.title %>">Details</a>
-      </li>
-    <% }) %>
-  </ul>
+  <%- include('../../layout/details.ejs') %>
+
 </body>
 </html>

@@ -17,10 +17,9 @@
   <ul class="booklist">
     <% newBooks.forEach(book => { %>
       <li>
-        <img src=<%= book.img %> alt=<%= book.desc %>>
+        <img src=<%= book.img %> alt=<%= book.descrip %>>
         <h1> <%= book.title %></h1>
         <h3> <%= book.author %></h3>
-        <a href="/books/<%= book.title %>">Details</a>
         <form action="../books" method="post">
           <input type="hidden" value ="<%=JSON.stringify(book)%>" name='chosenBook'>
           <input type="submit" value="Save Book">
