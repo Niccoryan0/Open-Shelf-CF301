@@ -27,6 +27,7 @@ Special thanks to:
 
 
 ## Features
+### 05/19/2020
 Number and name of feature: #1 Enjoyable experience
 
 Estimate of time needed to complete: 30 min
@@ -91,3 +92,59 @@ Start time: 9 p.m.
 Finish time:  9:20 p.m.
 
 Actual time needed to complete: 20 min
+
+
+### 05/19/2020
+Number and name of feature: #1 Display Saved on Index
+
+Estimate of time needed to complete: 30 min
+
+Start time: 12:45 p.m.
+
+Finish time:  1:15 p.m. 
+
+Actual time needed to complete: ~30 min
+
+
+Number and name of feature: #2 Single book details
+
+Estimate of time needed to complete: 40 min
+
+Start time: 1:15 p.m.
+
+Finish time:  ~2:45 p.m. 
+
+Actual time needed to complete: 35-45 min (Broken up by code challenge)
+
+
+Number and name of feature: #3 Add books to DB manually
+
+Estimate of time needed to complete: 20 min
+
+Start time: 2:55 p.m.
+
+Finish time:  3:15 p.m.
+
+Actual time needed to complete: ~25 min
+
+
+Number and name of feature: #4 Consistency
+
+Estimate of time needed to complete: 15 min
+
+Start time: 3:35 p.m.
+
+Finish time:  3:45 p.m.
+
+Actual time needed to complete: 10 min
+
+
+Number and name of feature: #5 Clean UI
+
+Estimate of time needed to complete: 1 hr +
+
+Start time: 9:30 p.m.
+
+Finish time:  ONGOING
+
+Actual time needed to complete: 
