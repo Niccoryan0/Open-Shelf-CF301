@@ -1,16 +1,16 @@
 'use strict';
 
 // Packages
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
 const pg = require('pg');
-require('dotenv').config();
 
 // Global vars
 const PORT = process.env.PORT;
 const app = express();
-app.use(express.static('./public')); //helps the frontend
+const methodOverride = require('method-override');
 
 function Book(obj) {
   this.title = obj.title ? obj.title : 'Unknown Title';
@@ -21,7 +21,7 @@ function Book(obj) {
   this.img = obj.imageLinks ? obj.imageLinks.smallThumbnail : `https://i.imgur.com/J5LVHEL.jpg`;
   this.descrip = obj.description ? obj.description : 'No Description Available, Sorry.';
   this.isbn = obj.industryIdentifiers ? obj.industryIdentifiers[0].identifier : 'No ISBN found';
-  this.shelf = 0;
+  this.shelf = 'All';
 }
 
 // Config
@@ -29,9 +29,10 @@ app.use(cors());
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', console.error);
 client.connect();
-// For Form Use
-app.use(express.static('./Public'));
-app.use(express.urlencoded({extended: true}));
+// Middleware
+app.use(express.static('./public')); // serves static files from the public folder to make them accessible
+app.use(express.urlencoded({extended: true})); // puts form info into req.body
+app.use(methodOverride('_overrideMethod'));
 
 // Routes
 app.set('view engine', 'ejs');
@@ -45,6 +46,22 @@ app.post('/searches', handleSearch);
 app.get('/books/:id', bookDetails);
 
 app.post('/books', bookDetailsSql);
+
+app.get('/resetDatabase', resetDatabase);
+
+// Updating a single book, using methodOverride to use put:
+app.put('/books/:id/update', updateBook);
+
+function updateBook(req,res){
+  const sqlUpdate = `UPDATE books
+  SET title = $1, author = $2, img = $3, descrip = $4, isbn = $5, shelf = $6
+  WHERE id=$7`;
+  console.log(req.params);
+  const updateValues = [req.body.title, req.body.author, req.body.img, req.body.descrip, req.body.isbn, req.body.shelfInp || req.body.shelfSel, req.params.id];
+
+  client.query(sqlUpdate, updateValues)
+    .then(() => res.redirect(`/books/${req.params.id}`));
+}
 
 function getSqlForHome(req,res) {
   client.query('SELECT * FROM books')
@@ -72,16 +89,44 @@ function handleErrors(err, res){
 function bookDetailsSql(req, res){
   const chosenBook = JSON.parse(req.body.chosenBook);
   const sqlQuery = 'INSERT INTO books (title, author, img, descrip, isbn, shelf) VALUES ($1, $2, $3, $4, $5, $6)';
-  const valArray = [chosenBook.title, chosenBook.author, chosenBook.img, chosenBook.descrip, chosenBook.isbn, chosenBook.shelf];
-  client.query(sqlQuery, valArray);
-  res.render('pages/books/show', {'newBooks' : [chosenBook]});
+  const valArray = [chosenBook.title, chosenBook.author, chosenBook.img, chosenBook.descrip, chosenBook.isbn, chosenBook.shelf ];
+  const sqlShelves = `SELECT DISTINCT shelf FROM books`;
+  client.query(sqlQuery, valArray)
+    .then(() => {
+      client.query(sqlShelves)
+        .then(result => {
+          res.render('pages/books/show', {'newBook' : chosenBook, 'shelves' : result.rows, displayButton : false});
+        });
+    });
 }
 
 function bookDetails(req, res){
-  const sqlQuery = `SELECT * FROM books WHERE title = '${req.params.id}'`;
+  const sqlQuery = `SELECT * FROM books WHERE id = '${req.params.id}'`;
+  const sqlShelves = `SELECT DISTINCT shelf FROM books`;
   client.query(sqlQuery)
-    .then(result => res.render('pages/books/show', {newBooks : result.rows}))
+    .then((result1) => {
+      client.query(sqlShelves)
+        .then(result2 => {
+          console.log(result2.rows);
+          res.render('pages/books/show', {'newBook' : result1.rows[0], 'shelves' : result2.rows, displayButton : true});
+        });
+    })
     .catch(err => handleErrors(err, res));
+}
+
+function resetDatabase(req, res) {
+  const sqlQuery = `DROP TABLE IF EXISTS books;
+  CREATE TABLE books (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    author VARCHAR(255),
+    img VARCHAR(255),
+    descrip TEXT,
+    isbn VARCHAR(255),
+    shelf VARCHAR(255)
+  );`;
+  client.query(sqlQuery);
+  res.redirect('/');
 }
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

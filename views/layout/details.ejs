@@ -1,14 +1,18 @@
-<section>
-  <ul class='booklist details'>
-    <% newBooks.forEach(book => { %>
-      <li>
-        <img src=<%= book.img %> alt=<%= book.desc %>>
-        <h1>Title: <%= book.title %></h1>
-        <h3>Author: <%= book.author %></h3>
-        <p id='detailsdescription'>Description: <br> <%= book.descrip %></p>
-        <p>ISBN Number: <%= book.isbn %></p>
-        <p>Bookshelf Number: <%= book.shelf %></p>
-      </li>
-    <% }) %>
-  </ul>
-</section>
+<li>
+  <img src=<%= book.img %> alt=<%= book.desc %>>
+  <h1><%= book.title %></h1>
+  <h3>Main Author: <%= book.author %></h3>
+  <% if(displayInfo) {%>
+    <p id='detailsdescription'>Description: <br> <%= book.descrip %></p>
+    <p>ISBN Number: <%= book.isbn %></p>
+    <p>Bookshelf: <%= book.shelf %></p>
+    <% if(displayLink) {%>
+      <a href="/books/<%=book.id%>">Details</a>
+    <% } %>
+  <% } else{ %>
+    <form action="../books" method="POST">
+      <input type="hidden" value ="<%=JSON.stringify(book)%>" name='chosenBook'>
+      <input type="submit" value="Save Book">
+    </form>
+  <% } %>
+</li>

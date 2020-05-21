@@ -11,11 +11,20 @@
   <link rel="stylesheet" href="/styles/show.css">
 </head>
 <body>
-  <%- include('../layout/navbar.ejs') %>
+  <%- include('../layout/header.ejs') %>
 
-  <%if (newBooks){%> 
+  <%if (newBooks.length > 0){%> 
   <h2>You've got <%=newBooks.length%> books stored, here they are:</h2>
-  <%- include('../layout/details.ejs') %>
+  <button><a href="/resetDatabase">Click Here to Clear Saved Books</a></button>
+  <ul class='booklist'>
+    <%newBooks.forEach(book => {%>
+      <%- include('../layout/details.ejs', {'book' : book, displayLink : true, displayInfo: true}) %>
+    <%})%>
+  </ul>  <%}else{%>
+    <h2>Welcome to Book World! Please proceed to the search page to start building your collection!</h2>
+    <button><a href="/searches/new">Search For New Books</a></button>
+
   <%}%>
+
 </body>
 </html>
