@@ -1,0 +1,21 @@
+<form action="<%=newBook.id%>/update?_overrideMethod=PUT" method="post" id="updateForm">
+  <label for="title">Title</label>
+  <input type="text" name="title" value="<%=newBook.title%>">
+  <label for="author">Author</label>
+  <input type="text" name="author" value="<%=newBook.author%>">
+  <label for="description">Description</label>
+  <input type="text" name="descrip" value="<%=newBook.descrip%>">
+  <label for="img">Image Source</label>
+  <input type="text" name="img" value="<%=newBook.img%>">
+  <label for="isbn">ISBN</label>
+  <input type="text" name="isbn" value="<%=newBook.isbn%>">
+  <label for="shelfInp">Enter a shelf name</label>
+  <input type="text" name="shelfInp" value="<%=newBook.shelf%>">
+  <label for="shelfSel">Or select an existing one</label>
+  <select name="shelfSel">
+    <%if (shelves) shelves.forEach(val => { %>
+      <option value="<%=val['shelf']%>"><%=val['shelf']%></option>
+    <%})%>
+  </select>
+  <input type="submit">
+</form>

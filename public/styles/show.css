@@ -1,6 +1,6 @@
 
 
-.booklist >li > p {
+.booklist > li > p:nth-child(4) {
   overflow: auto;
   height: 100px;
 }
