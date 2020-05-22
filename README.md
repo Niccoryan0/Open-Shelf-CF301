@@ -24,6 +24,7 @@ Special thanks to:
 - Nicholas Carignan
 - Chance Harmon
 - Bryant Davis
+- Eric Terwan (Hamburger Menu Inspiration : https://codepen.io/erikterwan/pen/EVzeRP?editors=1100)
 
 
 ## Features

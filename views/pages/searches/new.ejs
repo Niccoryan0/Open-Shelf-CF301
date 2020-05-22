@@ -7,36 +7,14 @@
   <link rel="stylesheet" href="/styles/reset.css">
   <link rel="stylesheet" href="/styles/base.css">
   <link rel="stylesheet" href="/styles/layout.css">
-  <link rel="stylesheet" href="/styles/modules.css">
+  <link rel="stylesheet" href="/styles/modules/modules.css">
 </head>
 <body>
-  <%- include('../../layout/header.ejs') %>
+  <%- include('../../layout/header.ejs', {'onHome' : false, 'onSearch' : true}) %>
 
   <h2 class='mainhead'>Search by Title Or Author</h2>
   <div id="wrapper">
-    <form action="/searches" method="post">
-      <fieldset>
-        <ul class="inputs">
-          <li class="input radio">
-            <label for="title">Title</label>
-            <input type="radio" id="title" name="search-type" value="title" checked>
-
-          </li>
-          <li class="input radio">
-            <label for="title">Author</label>
-            <input type="radio" id="author" name="search-type" value="author">
-
-          </li>
-          <li class="input">
-            <input type="text" name="search" placeholder="Enter a title or author">
-          </li>
-          <div>
-            <input type="submit">
-
-          </div>
-        </ul>
-      </fieldset>
-    </form>
+    <%- include('../../layout/edit.ejs', {'newBook': false, 'updatePage' : false}) %>
   </div>
 </body>
 </html>

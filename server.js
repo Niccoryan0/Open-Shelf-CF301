@@ -52,20 +52,40 @@ app.get('/resetDatabase', resetDatabase);
 // Updating a single book, using methodOverride to use put:
 app.put('/books/:id/update', updateBook);
 
+app.delete('/books/:id/delete', deleteBook);
+
+// app.get('/login', function(req, res) {
+//   var scopes = 'user-read-private user-read-email';
+//   res.redirect('https://accounts.spotify.com/authorize' +
+//     '?response_type=code' +
+//     '&client_id=' + my_client_id +
+//     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+//     '&redirect_uri=' + encodeURIComponent('localhost:5000'));
+// });
+
+function deleteBook(req,res){
+  const sqlDelete = `DELETE FROM books WHERE id=$1`;
+  const sqlVal = [req.params.id];
+  client.query(sqlDelete, sqlVal)
+    .then(() => res.redirect('/'))
+    .catch(err => handleErrors(err, res));
+}
+
 function updateBook(req,res){
   const sqlUpdate = `UPDATE books
   SET title = $1, author = $2, img = $3, descrip = $4, isbn = $5, shelf = $6
   WHERE id=$7`;
-  console.log(req.params);
   const updateValues = [req.body.title, req.body.author, req.body.img, req.body.descrip, req.body.isbn, req.body.shelfInp || req.body.shelfSel, req.params.id];
 
   client.query(sqlUpdate, updateValues)
-    .then(() => res.redirect(`/books/${req.params.id}`));
+    .then(() => res.redirect(`/books/${req.params.id}`))
+    .catch(err => handleErrors(err, res));
 }
 
 function getSqlForHome(req,res) {
   client.query('SELECT * FROM books')
-    .then(result => res.render('pages/index', {'newBooks' : result.rows}));
+    .then(result => res.render('pages/index', {'newBooks' : result.rows}))
+    .catch(err => handleErrors(err, res));
 }
 
 function handleSearch(req,res) {
@@ -82,7 +102,7 @@ function handleSuperAgent(result, res) {
 }
 
 function handleErrors(err, res){
-  console.log(err);
+  console.error(err);
   res.render('pages/error', {error: err});
 }
 
@@ -90,25 +110,25 @@ function bookDetailsSql(req, res){
   const chosenBook = JSON.parse(req.body.chosenBook);
   const sqlQuery = 'INSERT INTO books (title, author, img, descrip, isbn, shelf) VALUES ($1, $2, $3, $4, $5, $6)';
   const valArray = [chosenBook.title, chosenBook.author, chosenBook.img, chosenBook.descrip, chosenBook.isbn, chosenBook.shelf ];
-  const sqlShelves = `SELECT DISTINCT shelf FROM books`;
+  const sqlShelves = 'SELECT DISTINCT shelf FROM books';
   client.query(sqlQuery, valArray)
     .then(() => {
       client.query(sqlShelves)
         .then(result => {
-          res.render('pages/books/show', {'newBook' : chosenBook, 'shelves' : result.rows, displayButton : false});
+          res.render('pages/books/show', {'newBook' : chosenBook, 'shelves' : result.rows, displayButtons : false});
         });
-    });
+    }).catch(err => handleErrors(err, res));
 }
 
 function bookDetails(req, res){
-  const sqlQuery = `SELECT * FROM books WHERE id = '${req.params.id}'`;
-  const sqlShelves = `SELECT DISTINCT shelf FROM books`;
-  client.query(sqlQuery)
+  const sqlQuery = 'SELECT * FROM books WHERE id = $1';
+  const sqlVal = [req.params.id];
+  const sqlShelves = 'SELECT DISTINCT shelf FROM books';
+  client.query(sqlQuery, sqlVal)
     .then((result1) => {
       client.query(sqlShelves)
         .then(result2 => {
-          console.log(result2.rows);
-          res.render('pages/books/show', {'newBook' : result1.rows[0], 'shelves' : result2.rows, displayButton : true});
+          res.render('pages/books/show', {'newBook' : result1.rows[0], 'shelves' : result2.rows, displayButtons : true});
         });
     })
     .catch(err => handleErrors(err, res));

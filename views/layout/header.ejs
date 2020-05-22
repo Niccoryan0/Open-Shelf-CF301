@@ -1,9 +1,19 @@
 <nav>
   <h1>Book World</h1>
-  <div>
-    <ul>
+
+  <!-- This idea was adapted from the following codepen: https://codepen.io/erikterwan/pen/EVzeRP -->
+  <div id="hamburgerToggle">
+    <input type="checkbox"/>
+    <!-- Spans to make the hamburger: -->
+    <span></span>
+    <span></span>
+    <span></span>
+    <ul id="linkMenu">
+      <% if (!onHome){ %>
       <li><a href="/">Home</a></li>
+      <% }else if (!onSearch){ %>
       <li><a href="/searches/new">Search</a></li>
+      <% } %>
     </ul>
   </div>
 </nav>

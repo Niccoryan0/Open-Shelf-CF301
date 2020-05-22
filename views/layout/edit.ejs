@@ -1,21 +1,58 @@
-<form action="<%=newBook.id%>/update?_overrideMethod=PUT" method="post" id="updateForm">
-  <label for="title">Title</label>
-  <input type="text" name="title" value="<%=newBook.title%>">
-  <label for="author">Author</label>
-  <input type="text" name="author" value="<%=newBook.author%>">
-  <label for="description">Description</label>
-  <input type="text" name="descrip" value="<%=newBook.descrip%>">
-  <label for="img">Image Source</label>
-  <input type="text" name="img" value="<%=newBook.img%>">
-  <label for="isbn">ISBN</label>
-  <input type="text" name="isbn" value="<%=newBook.isbn%>">
-  <label for="shelfInp">Enter a shelf name</label>
-  <input type="text" name="shelfInp" value="<%=newBook.shelf%>">
-  <label for="shelfSel">Or select an existing one</label>
-  <select name="shelfSel">
-    <%if (shelves) shelves.forEach(val => { %>
-      <option value="<%=val['shelf']%>"><%=val['shelf']%></option>
-    <%})%>
-  </select>
-  <input type="submit">
+<% if (updatePage){ %>
+
+<form action="<%=newBook.id%>/update?_overrideMethod=PUT" method="POST" id="updateForm">
+<% } else { %>
+  <form action="/searches" method="post" id="bookSearch">
+<% } %>
+  <% if (updatePage){ %>
+  
+    <label for="title">Title</label>
+    <input type="text" name="title" value="<%=newBook.title%>">
+
+    <label for="author">Author</label>
+    <input type="text" name="author" value="<%=newBook.author%>">
+
+    <label for="description">Description</label>
+    <input type="text" name="descrip" value="<%=newBook.descrip%>">
+
+    <label for="img">Image Source</label>
+    <input type="text" name="img" value="<%=newBook.img%>">
+
+    <label for="isbn">ISBN</label>
+    <input type="text" name="isbn" value="<%=newBook.isbn%>">
+
+    <label for="shelfInp">Enter a shelf name</label>
+    <input type="text" name="shelfInp" value="<%=newBook.shelf%>">
+
+    <label for="shelfSel">Or select an existing one</label>
+    <select name="shelfSel">
+        <%if (shelves) shelves.forEach(val => { %>
+          <option value="<%=val['shelf']%>"><%=val['shelf']%></option>
+        <%})%>
+      </select>
+
+    <% } else { %>
+        <section class='radios'>
+          <label for="title">Title
+            <input type="radio" id="title" name="search-type" value="title" checked>
+            <span class='customRadio'></span>
+          </label>
+
+          <label for="title">Author
+            <input type="radio" id="author" name="search-type" value="author">
+            <span class="customRadio"></span>
+          </label>
+        </section>
+
+        <input type="text" name="search" placeholder="Enter a title or author">
+
+      <div>
+      </div>
+      <% } %>
+    <input type="submit">
 </form>
+<% if (newBook) {%>
+<form action="<%=newBook.id%>/delete?_overrideMethod=DELETE" method="POST" id="delete-form">
+  <input type="hidden">
+</form>
+<% } %>

@@ -7,16 +7,15 @@
   <link rel="stylesheet" href="/styles/reset.css">
   <link rel="stylesheet" href="/styles/base.css">
   <link rel="stylesheet" href="/styles/layout.css">
-  <link rel="stylesheet" href="/styles/modules.css">
-  <link rel="stylesheet" href="/styles/show.css">
+  <link rel="stylesheet" href="/styles/modules/modules.css">
 
 </head>
 <body>
-  <%- include("../../layout/header.ejs") %>
+  <%- include("../../layout/header.ejs", {"onHome" : false, "onSearch" : false}) %>
   <h2 class="mainhead">Here's what we found:</h2>
-  <ul class='booklist'>
+  <ul class="booklist">
     <%newBooks.forEach(book => {%>
-      <%- include('../../layout/details.ejs', {'book' : book, displayLink : true, displayInfo: false}) %>
+      <%- include("../../layout/details.ejs", {"book" : book, displayLink : true, displayInfo: false, displayButtons: false}) %>
     <%})%>
   </ul>
 
