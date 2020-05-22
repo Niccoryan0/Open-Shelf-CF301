@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Ubuntu+Mono&display=swap');
+
+body {
+  background-color: gray;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+.mainhead {
+  background-color: rgba(80, 75, 75, 0.4)
+}
+
+nav {
+  background-color: black;
+}
+
+#delete-form {
+  visibility: hidden;
+}
+
+h1 {
+  margin-top:6px;
+  font-size: 16px;
+  color: white;
+  font-family: 'Balsamiq Sans', cursive;
+}
+
+h2 {
+  font-size: 15px;
+  color: white;
+  font-family: 'Balsamiq Sans', cursive;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+.booklist >li {
+  background-color: rgb(236, 184, 184);
+}
+
+#linkMenu > li > a {
+  font-size:18px;
+}
+
+fieldset > ul >li {
+  background-color: rgb(236, 184, 184);
+}
+
+input[type='submit'] {
+  background-color: black;
+  color: white;
+}
+
+.booklist >li {
+  background-color: rgb(236, 184, 184);
+}
+
+a {
+  color: White;
+}
+
+#hamburgerToggle a:hover {
+  color: Red;
+}
+
+#hamburgerToggle span {
+  background: white;
+}
+
+button {
+  background-color: red;
+  border: none;
+  font-size: 0.9em;
+  color: white
+}
+
+#homeButton {
+  width: fit-content;
+  margin: 20px auto;
+}
+
+/* Scrollbar: */
+::-webkit-scrollbar {
+  width: 12.5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(255, 255, 255); 
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(117, 43, 43, 0.8);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(68, 41, 41);
+}
+
+.booklist > li > p:nth-child(4) {
+  overflow: auto;
+  height: 100px;
+}
+
+.booklist >li > h1 {
+  font-weight: bolder;
+}
+
+.booklist >li > h3 {
+  font-style: italic;
+
+}
+
+.booklist >li > img {
+  width: 150px;
+}
+
+@media screen and (min-width: 600px){
+  .booklist {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .booklist >li {
+    width: 30%;
+  }
+}

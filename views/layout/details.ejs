@@ -8,6 +8,11 @@
     <p>Bookshelf: <%= book.shelf %></p>
     <% if(displayLink) {%>
       <a href="/books/<%=book.id%>">Details</a>
+    <% }else if(displayButtons) {%>
+      <section class='bookShowButtons'>
+        <button id="updateBook"><a>Update Book</a></button>
+        <button id="deleteBook" type="submit" form="delete-form">Delete Book</button>
+      </section>
     <% } %>
   <% } else{ %>
     <form action="../books" method="POST">
