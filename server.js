@@ -54,6 +54,14 @@ app.put('/books/:id/update', updateBook);
 
 app.delete('/books/:id/delete', deleteBook);
 
+// app.get('/login', function(req, res) {
+//   var scopes = 'user-read-private user-read-email';
+//   res.redirect('https://accounts.spotify.com/authorize' +
+//     '?response_type=code' +
+//     '&client_id=' + my_client_id +
+//     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+//     '&redirect_uri=' + encodeURIComponent('localhost:5000'));
+// });
 
 function deleteBook(req,res){
   const sqlDelete = `DELETE FROM books WHERE id=$1`;
@@ -114,7 +122,7 @@ function bookDetailsSql(req, res){
 
 function bookDetails(req, res){
   const sqlQuery = 'SELECT * FROM books WHERE id = $1';
-  const sqlVal = req.params.id;
+  const sqlVal = [req.params.id];
   const sqlShelves = 'SELECT DISTINCT shelf FROM books';
   client.query(sqlQuery, sqlVal)
     .then((result1) => {

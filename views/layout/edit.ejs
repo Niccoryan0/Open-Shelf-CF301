@@ -1,8 +1,8 @@
 <% if (updatePage){ %>
-  <!-- action="<%=newBook.id%>/update?_overrideMethod=PUT" method="POST" id="updateForm" -->
-<form action ="<%=action%>" method="<%=method%>" id="<%=id%>">
+
+<form action="<%=newBook.id%>/update?_overrideMethod=PUT" method="POST" id="updateForm">
 <% } else { %>
-  <!-- <form action="/searches" method="post" id="bookSearch"> -->
+  <form action="/searches" method="post" id="bookSearch">
 <% } %>
   <% if (updatePage){ %>
   
