@@ -35,6 +35,7 @@ a {
 
 .booklist >li {
   background-color: rgb(236, 184, 184);
+  border-radius: 12px;
 }
 
 .booklist > li > a {
@@ -54,9 +55,6 @@ input[type='submit'] {
   color: white;
 }
 
-.booklist >li {
-  background-color: rgb(236, 184, 184);
-}
 
 a {
   color: White;
