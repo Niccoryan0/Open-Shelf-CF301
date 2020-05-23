@@ -10,7 +10,7 @@ nav > div   {
   width: fit-content;
 }
 
-.mainhead {
+h2 {
   text-align: center;
   padding: 15px 0;
 }
@@ -40,10 +40,11 @@ div {
 }
 
 input[type='submit'] {
-  width: 100%;
+  width: 120px;
   margin: 0 auto;
   height: 40px;
   border: none;
+  border-radius: 12px;
 }
 
 .booklist >li {
@@ -71,12 +72,16 @@ input[type='submit'] {
 }
 
 .homeHead {
-  margin: 20px auto;
+  margin: 0px auto 20px;
   width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.homeHead > button {
+  margin-top: 30px;
 }
 
 button {
@@ -108,7 +113,7 @@ button {
 #hamburgerToggle {
   display: block;
   position: relative;
-  top: 8px;
+  top: 5px;
   /* right: 20px; */
   
 /*   z-index: 1; */
@@ -121,14 +126,15 @@ button {
   width: 40px;
   height: 32px;
   position: absolute;
-  top: 0px;
-  left: -5px;
+  top: -5px;
+  /* left: -5px; */
   
   cursor: pointer;
   
   opacity: 0; /* hide this */
   z-index: 2; /* and place it over the hamburger */
 }
+
 #hamburgerToggle span {
   display:block;
   width: 30px;
@@ -141,6 +147,9 @@ button {
   /* z-index:1 */
 
   transform-origin: 4px 0px;
+
+
+  transition: transform 0.5s;
 }
 
 #hamburgerToggle span:first-child {
@@ -153,11 +162,9 @@ button {
 
 /* Turn the top + bottom spans /s */
 #hamburgerToggle input:checked ~ span {
-  /* opacity: 1; */
   transform: rotate(45deg) translate(-2px, -1px);
-  /* background: white; */
 }
-/* Make middle on invisible */
+/* Make middle one invisible */
 #hamburgerToggle input:checked ~ span:nth-last-child(3) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);

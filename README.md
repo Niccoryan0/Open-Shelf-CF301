@@ -3,21 +3,27 @@
 # Project Name
 
 **Author**: Your Name Goes Here
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.4.3 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code 301 class. (i.e. What's your problem domain?) -->
+This application is for book lovers everywhere who need a place to search for a store information about books. It alleviates the need for an individual to remember the books that they need to read, or can serve as a repository to remember and reference books the user has already read, among many other possibilities. Books can be stored on select shelves for organization purposes as well.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+- Run NPM install from the root of this directory
+- Create a .env file for your local port number and Postgres database info.
+- Example env file:
+  - PORT=3000
+  - DATABASE_URL=postgres://USER:PASSWORD@DOMAIN:PORT/DBNAME
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+The back end for this app utilizes JavaScript as the programming language, as well as packages such as EJS, for templating and rendering HTML, express (for creating the server), cors (provides the Connect/Express middleware), dotenv (for reading the env file), nodemon (to run a local server), Postgres (for SQL database), superagent (collects data from APIs), and Method Override (unpacking data from forms).
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
+- 05-18-2020 6pm - Application is now live with a fully function express server, containing GET and POST routes for the book resouce and search functionality.
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with GET and POST routes for the book resource. -->
+- 05-19-2020 6pm - Application now stores saved books in a database and renders books the user saves to the home page.
+
+- 05-20-2020 8pm - Application now has the ability for users to update and delete their saved books' information.
 
 ## Credits and Collaborations
 Special thanks to:
@@ -73,18 +79,7 @@ Finish time:  9 p.m.
 Actual time needed to complete: 30 min
 
 
-Number and name of feature: #5 Clean UI
-
-Estimate of time needed to complete: 1 hr +
-
-Start time: 9:30 p.m.
-
-Finish time:  ONGOING
-
-Actual time needed to complete: 
-
-
-Number and name of feature: #6 Homepage
+Number and name of feature: #5 Homepage
 
 Estimate of time needed to complete: 15 min
 
@@ -149,3 +144,25 @@ Start time: 9:30 p.m.
 Finish time:  ONGOING
 
 Actual time needed to complete: 
+
+### 05/20/2020
+Number and name of feature: #1 Update Saved Books
+
+Estimate of time needed to complete: 30-45 min
+
+Start time: 2:00 p.m.
+
+Finish time:  3:00 p.m. 
+
+Actual time needed to complete: ~1 hr
+
+
+Number and name of feature: #2 Delete Book
+
+Estimate of time needed to complete: 30 min
+
+Start time: 6:15 p.m.
+
+Finish time:  ~6:55 p.m. 
+
+Actual time needed to complete: 40 min
