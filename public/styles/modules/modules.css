@@ -36,6 +36,7 @@ a {
 .booklist >li {
   background-color: rgb(236, 184, 184);
   border-radius: 12px;
+  height: 600px;
 }
 
 .booklist > li > a {
