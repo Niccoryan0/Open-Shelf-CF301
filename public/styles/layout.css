@@ -73,7 +73,7 @@ input[type='submit'] {
 
 .homeHead {
   margin: 0px auto 20px;
-  width: fit-content;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,6 +82,9 @@ input[type='submit'] {
 
 .homeHead > button {
   margin-top: 30px;
+}
+.homeHead > h2 {
+  width:100%
 }
 
 button {
