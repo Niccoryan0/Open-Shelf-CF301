@@ -1,10 +1,12 @@
 .booklist > li {
   width: 250px;
-  height: 600px;
+  height: 800px;
 }
 
 @media screen and (min-width: 600px){
   .booklist > li {
     width:70%;
+    height: 600px;
+
   }
 }

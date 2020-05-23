@@ -5,10 +5,6 @@ body {
   font-family: 'Ubuntu Mono', monospace;
 }
 
-.mainhead {
-  background-color: rgba(80, 75, 75, 0.4)
-}
-
 nav {
   background-color: black;
 }
@@ -28,7 +24,9 @@ h2 {
   font-size: 15px;
   color: white;
   font-family: 'Balsamiq Sans', cursive;
-
+  text-align: center;
+  background-color: rgba(80, 75, 75, 0.4);
+  height: 20%
 }
 
 a {
@@ -37,6 +35,10 @@ a {
 
 .booklist >li {
   background-color: rgb(236, 184, 184);
+}
+
+.booklist > li > a {
+  font-size: 22px;
 }
 
 #linkMenu > li > a {
